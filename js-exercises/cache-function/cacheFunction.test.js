@@ -24,4 +24,19 @@ describe('cacheFunction', () => {
     myCachedFunction(10);
     expect(foo).toHaveBeenCalledTimes(2);
   });
+  it('custom test case - factorial function - should cache function result and return correct result', () => {
+    const mockFactorial = jest.fn((n) => {
+      if (n === 0) {
+        return 1;
+      }
+      return n * mockFactorial(n - 1);
+    });
+    const myCachedFunction = cacheFunction(mockFactorial);
+    expect(myCachedFunction(7)).toBe(5040);
+    expect(mockFactorial).toHaveBeenCalledTimes(8);
+    expect(myCachedFunction(7)).toBe(5040);
+    expect(mockFactorial).toHaveBeenCalledTimes(8);
+    expect(myCachedFunction(10)).toBe(3628800);
+    expect(mockFactorial).toHaveBeenCalledTimes(19);
+  });
 });

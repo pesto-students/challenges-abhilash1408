@@ -1,7 +1,6 @@
 function cacheFunction(cb) {
   const cache = {};
   return (...args) => {
-    // console.log(cache);
     if (cache[args]) {
       return cache[args];
     }
